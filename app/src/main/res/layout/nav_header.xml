@@ -3,9 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="80dp"
     android:gravity="top"
-    android:padding="25dp"
+    android:paddingTop="25dp"
+    android:paddingEnd="20dp"
+    android:paddingStart="20dp"
+    android:background="@color/gray"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     >
 
@@ -17,20 +20,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:paddingTop="20dp"
-            android:text="Hola,"
+            android:text="Bienvenido."
             style="@style/TextDescription"
+            android:paddingTop="15dp"
             android:textSize="18sp" />
-
+<!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/user_name"
-            android:text="Usuario"
+            android:text="Cargando..."
             android:textStyle="bold"
             android:textSize="20sp"
-            style="@style/TextBold"/>
+            style="@style/TextBold"/>-->
 
     </LinearLayout>
 

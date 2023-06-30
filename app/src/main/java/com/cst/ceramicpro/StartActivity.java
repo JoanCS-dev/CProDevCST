@@ -25,7 +25,7 @@ public class StartActivity extends AppCompatActivity {
         LoginRedirect = findViewById(R.id.Btn_Act_Login);
         RegisterRedirect = findViewById(R.id.Btn_Act_Register);
         Invitado = findViewById(R.id.Btn_Invitado);
-        dialog = new BottomSheetDialog(this);
+        dialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
 
         createDialog();
 
@@ -44,7 +44,6 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         RegisterRedirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -23,6 +23,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -71,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                 if(_email_.equals("") || _pass_.equals("")){
                     if(_email_.equals("")){
                         Message("Información", "Por favor escribe el correo electrónico");
+                    }else if(!ValidEmail(_email_)){
+                        Message("Información", "Por favor escribe un correo electrónico valido");
                     }else if(_pass_.equals("")){
                         Message("Información", "Por favor escribe la contraseña");
                     }
@@ -147,5 +151,13 @@ public class LoginActivity extends AppCompatActivity {
         Builder.setTitle(Title)
                 .setMessage(Message)
                 .setPositiveButton("Ok", null).show();
+    }
+
+    private boolean ValidEmail(String email){
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher mather = pattern.matcher(email);
+        return mather.find();
     }
 }

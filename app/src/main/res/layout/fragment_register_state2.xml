@@ -69,7 +69,7 @@
 
             <TextView
                 android:id="@+id/btn_search_cp"
-                android:layout_width="200px"
+                android:layout_width="180px"
                 android:layout_height="80px"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -177,8 +177,9 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:id="@+id/Btn_Registered"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="50px"
+        android:layout_marginStart="50px"
+        android:layout_marginBottom="50px"
         android:textAllCaps="false"
         android:text="Finalizar"
         android:backgroundTint="@color/black"

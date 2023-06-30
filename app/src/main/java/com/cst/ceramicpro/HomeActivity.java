@@ -21,7 +21,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     SharedPreferences cookies;
     DrawerLayout drawerLayout;
-    String User, strToken, fullName;
+    String strToken, fullName;
+    //TextView  username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View hView = navigationView.getHeaderView(0);
-        TextView username = (TextView) hView.findViewById(R.id.user_name);
-        username.setText(User);
+        //username = (TextView) hView.findViewById(R.id.user_name);
+
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -93,9 +94,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         strToken = cookies.getString("strToken", "");
         fullName = cookies.getString("fullName", "");
 
-        if(strToken == "" && fullName == ""){
+        /*if(strToken == "" && fullName == ""){
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
-        }
+        }*/
     }
 }

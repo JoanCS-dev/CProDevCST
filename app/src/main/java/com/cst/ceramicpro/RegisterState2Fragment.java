@@ -120,8 +120,30 @@ public class RegisterState2Fragment extends Fragment {
         B_Register_Full.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(getActivity(), LoginActivity.class));
-                SaveAs();
+                String __txt_CodigoPostal = txt_CodigoPostal.getText().toString();
+                String __txt_Calle = txt_Calle.getText().toString();
+                String __txt_NumExterior = txt_NumExterior.getText().toString();
+                String __txt_NumInterior = txt_NumInterior.getText().toString();
+                if(
+                    __txt_CodigoPostal.equals("") ||
+                    __txt_Calle.equals("") ||
+                    __txt_NumExterior.equals("") ||
+                    __txt_NumInterior.equals("") || SettlementID == 0){
+                    if(__txt_CodigoPostal.equals("")) {
+                        Message("Información", "Por favor escribe tu código postal.");
+                    }else if(SettlementID == 0){
+                        Message("Información", "Por favor selecciona tu asentamiento.");
+                    }else if(__txt_Calle.equals("")){
+                        Message("Información", "Por favor escribe la calle.");
+                    }else if(__txt_NumExterior.equals("")){
+                        Message("Información", "Por favor escribe el número exterior.");
+                    }else if(__txt_NumInterior.equals("")){
+                        Message("Información", "Por favor escribe el número interior.");
+                    }
+                }else{
+                    Show();
+                    SaveAs();
+                }
             }
         });
 
