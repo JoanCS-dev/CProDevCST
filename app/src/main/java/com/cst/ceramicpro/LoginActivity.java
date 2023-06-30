@@ -112,8 +112,8 @@ public class LoginActivity extends AppCompatActivity {
                         loading.hide();
                         try{
                             String string_json = response.body().string();
-                            Type fooType = new TypeToken<ResponseVM<AuthResponseVM>>() {}.getType();
-                            ResponseVM<AuthResponseVM> res = gson.fromJson(string_json, fooType);
+                            Type res_Type = new TypeToken<ResponseVM<AuthResponseVM>>() {}.getType();
+                            ResponseVM<AuthResponseVM> res = gson.fromJson(string_json, res_Type);
                             if(res.ok){
                                 SharedPreferences sharedPreferences = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
