@@ -56,7 +56,7 @@ public class RegisterState2Fragment extends Fragment {
     private ImageButton Back;
     private String txt_Name, txt_Lastname, txt_Phone, txt_Email, txt_Pass;
     private TextInputEditText txt_CodigoPostal, txt_Estado, txt_Municipio, txt_Calle, txt_NumExterior, txt_NumInterior;
-    private TextView btn_search_cp;
+    private Button btn_search_cp;
     private String URL = "http://192.168.100.3:8082/Api";
     private View view;
     private AutoCompleteTextView autoCompleteAsentamiento;
