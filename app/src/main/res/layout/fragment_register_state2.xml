@@ -46,22 +46,38 @@
             android:textAlignment="center"
             android:textColor="@color/simple_text" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_CodigoPostal"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30px"
-            android:hint="Código Postal(CP) *"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30px"
+                android:hint="Código Postal(CP) *"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_CodigoPostal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/btn_search_cp"
+                android:layout_width="200px"
+                android:layout_height="80px"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginStart="20px"
+                android:background="@drawable/baseline_search_24" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_Estado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30px"
@@ -69,13 +85,15 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_Estado"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:enabled="false"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_Municipio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30px"
@@ -83,14 +101,29 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_Municipio"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:enabled="false"/>
 
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30px"
+            android:hint="Asentamiento"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteAsentamiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_Calle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30px"
@@ -98,39 +131,41 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_Calle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_NumExterior"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30px"
-            android:hint="NumExterior"
+            android:hint="No Exterior"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_NumExterior"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_NumInterior"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30px"
-            android:hint="NumInterior"
+            android:hint="No Interior"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_NumInterior"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
