@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/grp1">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_home"
+            android:title="Inicio"/>
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/ic_baseline_notifications"
+            android:title="Notificaciones"/>
+        <item
+            android:id="@+id/nav_reserv"
+            android:icon="@drawable/ic_baseline_date"
+            android:title="Reserva"/>
+
+    </group>
+
+    <item android:title="Configuración">
+        <menu>
+            <group
+                android:checkableBehavior="single"
+                android:id="@+id/grp2">
+                <item
+                    android:id="@+id/nav_close_sesion"
+                    android:icon="@drawable/ic_baseline_back"
+                    android:title="Cerrar Sesión"/>
+
+
+            </group>
+        </menu>
+    </item>
+</menu>
