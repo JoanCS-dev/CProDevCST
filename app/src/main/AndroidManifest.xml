@@ -20,7 +20,8 @@
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">>
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -34,7 +35,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

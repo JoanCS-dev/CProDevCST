@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton Back;
     private Button Ingresar;
     private TextInputEditText txt_Email, txt_Pass;
-    private String URL = "http://192.168.100.3:8082/Api/Account/Auth";
+    private String URL = "http://10.0.2.2:8082/Api/Account/Auth";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
