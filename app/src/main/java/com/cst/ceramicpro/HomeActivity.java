@@ -15,17 +15,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
-import com.mikhaellopez.circularimageview.CircularImageView;
-import com.squareup.picasso.Picasso;
 
-import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     SharedPreferences cookies;
     DrawerLayout drawerLayout;
-    String User, Imagen;
-    int Id_User;
+    String User, strToken, fullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +36,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         View hView = navigationView.getHeaderView(0);
         TextView username = (TextView) hView.findViewById(R.id.user_name);
-        //CircularImageView img = (CircularImageView) hView.findViewById(R.id.user_image);
         username.setText(User);
-        /*if(Objects.equals(Imagen, "")){
-            Picasso.get().load(R.drawable.ceramic_pro).error(R.drawable.ceramic_pro).into(img);
-        }else{
-            Picasso.get().load(Imagen).error(R.drawable.ceramic_pro).into(img);
-        }*/
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -99,15 +89,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void ValidateSesion(){
-        cookies = getSharedPreferences("Cookies", MODE_PRIVATE);
-        Id_User = cookies.getInt("Id_User", 0);
-        //User = cookies.getString("User", null);
-        User = "Usuario";
-        Imagen = cookies.getString("Image", null);
+        cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
+        strToken = cookies.getString("strToken", "");
+        fullName = cookies.getString("fullName", "");
 
-        /*if(Id_User == 0 && User == null){
+        if(strToken == "" && fullName == ""){
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
-        }*/
+        }
     }
 }
