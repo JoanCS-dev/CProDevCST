@@ -159,7 +159,6 @@
             android:textAllCaps="false"
             android:text="Continuar"
             android:backgroundTint="@color/black"
-
             android:textSize="20sp"
             app:cornerRadius="12dp"
             android:drawableEnd="@drawable/baseline_arrow_forward_24"/>
