@@ -6,5 +6,4 @@ public class ResponseVM<T> {
     public Boolean ok;
     public String title;
     public String message;
-    public String info;
 }
