@@ -20,10 +20,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Paquetes Ceramic Pro"
-                android:gravity="center"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="20dp"
-                android:textStyle="bold"
-                android:textSize="25dp"/>
+                android:textColor="@color/black"
+                android:textSize="22dp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/grayBlack"
+                        android:background="@color/black"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
@@ -145,7 +145,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/grayBlack"
+                        android:background="@color/black"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
@@ -249,7 +249,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/grayBlack"
+                        android:background="@color/black"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
