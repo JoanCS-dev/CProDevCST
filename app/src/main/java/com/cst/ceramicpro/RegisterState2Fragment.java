@@ -209,9 +209,13 @@ public class RegisterState2Fragment extends Fragment {
 
                             }else{
                                 Message("Información", res.message);
+                                txt_Estado.setText("");
+                                txt_Municipio.setText("");
                             }
                         }catch (Exception ex){
                             Message("Error", ex.getMessage());
+                            txt_Estado.setText("");
+                            txt_Municipio.setText("");
                         }
                     }
                 });
