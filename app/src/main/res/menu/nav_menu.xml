@@ -13,10 +13,10 @@
             android:fontFamily="@font/montserrat"
             android:title="Inicio"/>
         <item
-            android:id="@+id/nav_notification"
-            android:icon="@drawable/ic_baseline_notifications"
+            android:id="@+id/nav_planes"
+            android:icon="@drawable/baseline_home_repair_service_24"
             android:fontFamily="@font/montserrat"
-            android:title="Notificaciones"/>
+            android:title="Planes"/>
         <item
             android:id="@+id/nav_reserv"
             android:icon="@drawable/ic_baseline_date"
@@ -25,18 +25,17 @@
 
     </group>
 
-    <item android:title="Configuración">
-        <menu>
-            <group
-                android:checkableBehavior="single"
-                android:id="@+id/grp2">
-                <item
-                    android:id="@+id/nav_close_sesion"
-                    android:icon="@drawable/ic_baseline_back"
-                    android:title="Cerrar Sesión"/>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/grp2">
+        <item
+            android:id="@+id/nav_close_sesion"
+            android:icon="@drawable/baseline_logout_24"
+            android:fontFamily="@font/montserrat"
+            android:title="Cerrar Sesión"/>
 
 
-            </group>
-        </menu>
-    </item>
+    </group>
+
 </menu>
