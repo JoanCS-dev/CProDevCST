@@ -38,7 +38,8 @@
                     android:textColor="@color/black"
                     android:layout_marginBottom="30px"
                     android:textSize="35sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/montserrat"/>
             </FrameLayout>
 
             <TextView
@@ -47,7 +48,8 @@
                 android:layout_marginBottom="30px"
                 android:text="Validaremos tú ubicación por código postal (CP)."
                 android:textAlignment="center"
-                android:textColor="@color/simple_text" />
+                android:textColor="@color/simple_text"
+                android:fontFamily="@font/montserrat"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,14 +61,15 @@
                     android:layout_marginBottom="30px"
                     android:hint="Código Postal(CP) *"
                     android:layout_weight="1"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:fontFamily="@font/montserrat">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_CodigoPostal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        />
+                        android:fontFamily="@font/montserrat"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,7 +80,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Verificar"
-                    android:layout_marginStart="10dp"/>
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/montserrat"/>
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -85,14 +89,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
                 android:hint="Estado"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_Estado"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:fontFamily="@font/montserrat"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,14 +107,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
                 android:hint="Municipio"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_Municipio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:fontFamily="@font/montserrat"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,13 +125,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
                 android:hint="Asentamiento"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:fontFamily="@font/montserrat">
                 <AutoCompleteTextView
                     android:id="@+id/autoCompleteAsentamiento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="none"/>
+                    android:inputType="none"
+                    android:fontFamily="@font/montserrat"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -132,13 +142,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
                 android:hint="Calle"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_Calle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:fontFamily="@font/montserrat"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -153,13 +165,15 @@
                     android:layout_marginEnd="10dp"
                     android:hint="No Exterior"
                     android:layout_weight="1"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:fontFamily="@font/montserrat">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_NumExterior"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        android:fontFamily="@font/montserrat"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
@@ -169,13 +183,15 @@
                     android:layout_marginStart="10dp"
                     android:hint="No Interior"
                     android:layout_weight="1"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:fontFamily="@font/montserrat">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_NumInterior"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        android:fontFamily="@font/montserrat"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -207,6 +223,7 @@
             android:layout_gravity="bottom"
             android:textSize="20sp"
             app:cornerRadius="12dp"
-            android:drawableEnd="@drawable/baseline_arrow_forward_24"/>
+            android:drawableEnd="@drawable/baseline_arrow_forward_24"
+            android:fontFamily="@font/montserrat"/>
     </LinearLayout>
 </FrameLayout>

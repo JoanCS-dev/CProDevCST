@@ -15,32 +15,34 @@
         android:src="@drawable/ceramic_pro"/>
 
     <Button
+        android:id="@+id/Btn_Act_Register"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:id="@+id/Btn_Act_Register"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:textAllCaps="false"
-        android:text="Regístrate"
-        android:backgroundTint="@color/appcolor"
         android:layout_gravity="bottom"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/appcolor"
+        android:fontFamily="@font/montserrat"
+        android:text="Regístrate"
+        android:textAllCaps="false"
         android:textSize="20sp"
-        app:cornerRadius="12dp"/>
+        app:cornerRadius="12dp" />
 
     <Button
+        android:id="@+id/Btn_Act_Login"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:id="@+id/Btn_Act_Login"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:textAllCaps="false"
-        android:text="Iniciar sesión"
-        android:backgroundTint="@color/black"
         android:layout_gravity="bottom"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:text="Iniciar sesión"
+        android:textAllCaps="false"
         android:textSize="20sp"
-        app:cornerRadius="12dp"/>
+        app:cornerRadius="12dp" />
 
     <TextView
         android:id="@+id/Btn_Invitado"
@@ -49,6 +51,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:clickable="true"
+        android:fontFamily="@font/montserrat"
         android:padding="10dp"
         android:text="Continuar como invitado"
         android:textAlignment="center"

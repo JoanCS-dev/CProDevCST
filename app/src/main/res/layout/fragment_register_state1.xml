@@ -38,7 +38,8 @@
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="35sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/montserrat"/>
             </FrameLayout>
 
             <TextView
@@ -47,20 +48,23 @@
                 android:layout_marginBottom="30px"
                 android:text="Utilizaremos esta información para validar tu registro."
                 android:textAlignment="center"
-                android:textColor="@color/simple_text" />
+                android:textColor="@color/simple_text"
+                android:fontFamily="@font/montserrat"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
                 android:hint="Nombre(s)"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:fontFamily="@font/montserrat"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,13 +73,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
                 android:hint="Apellido(s)"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_Lastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"/>
+                    android:inputType="text"
+                    android:fontFamily="@font/montserrat"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,13 +90,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
                 android:hint="Celular"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_Phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:fontFamily="@font/montserrat"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,13 +108,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
                 android:hint="Correo electrónico"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_Email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="textEmailAddress"
+                    android:fontFamily="@font/montserrat"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,13 +125,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
                 android:hint="Contraseña"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_Pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/montserrat"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,13 +142,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirmar contraseña"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_Confirm_Pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/montserrat"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,7 +175,8 @@
             android:backgroundTint="@color/black"
             android:textSize="20sp"
             app:cornerRadius="12dp"
-            android:drawableEnd="@drawable/baseline_arrow_forward_24"/>
+            android:drawableEnd="@drawable/baseline_arrow_forward_24"
+            android:fontFamily="@font/montserrat"/>
     </LinearLayout>
 
 

@@ -23,7 +23,8 @@
             android:text="Bienvenido."
             style="@style/TextDescription"
             android:paddingTop="15dp"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:fontFamily="@font/montserrat"/>
 <!--
         <TextView
             android:layout_width="wrap_content"

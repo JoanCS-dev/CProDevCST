@@ -45,7 +45,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="35sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="@font/montserrat"/>
         </FrameLayout>
 
 
@@ -55,13 +56,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="50px"
             android:hint="Correo electrónico"
-            app:startIconDrawable="@drawable/baseline_account_circle_24">
+            app:startIconDrawable="@drawable/baseline_account_circle_24"
+            android:fontFamily="@font/montserrat">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:fontFamily="@font/montserrat"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,13 +75,15 @@
             android:layout_marginBottom="50px"
             android:hint="Contraseña"
             app:passwordToggleEnabled="true"
-            app:startIconDrawable="@drawable/ic_baseline_lock">
+            app:startIconDrawable="@drawable/ic_baseline_lock"
+            android:fontFamily="@font/montserrat">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_Pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:fontFamily="@font/montserrat"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +105,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:drawableEnd="@drawable/baseline_arrow_forward_24"/>
+        android:drawableEnd="@drawable/baseline_arrow_forward_24"
+        android:fontFamily="@font/montserrat"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

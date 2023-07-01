@@ -10,14 +10,17 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_baseline_home"
+            android:fontFamily="@font/montserrat"
             android:title="Inicio"/>
         <item
             android:id="@+id/nav_notification"
             android:icon="@drawable/ic_baseline_notifications"
+            android:fontFamily="@font/montserrat"
             android:title="Notificaciones"/>
         <item
             android:id="@+id/nav_reserv"
             android:icon="@drawable/ic_baseline_date"
+            android:fontFamily="@font/montserrat"
             android:title="Reserva"/>
 
     </group>
