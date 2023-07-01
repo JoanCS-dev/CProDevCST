@@ -8,6 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.models.SlideModel;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -23,6 +30,7 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private View view;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -53,12 +61,30 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        view  = inflater.inflate(R.layout.fragment_home, container, false);
+
+        List<SlideModel> imageList = new ArrayList<>(); // Create image list
+
+        // imageList.add(SlideModel("String Url" or R.drawable)
+        // imageList.add(SlideModel("String Url" or R.drawable, "title") You can add title
+
+        imageList.add(new SlideModel(R.drawable.porsche_suv, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.ford_focus_rs, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.infiniti, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.lamborghini_huracan, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.nissan_gtr, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.skyline_r34, ScaleTypes.FIT));
+
+        ImageSlider imageSlider = view.findViewById(R.id.image_slider);
+        imageSlider.setImageList(imageList);
+        return view;
     }
 }

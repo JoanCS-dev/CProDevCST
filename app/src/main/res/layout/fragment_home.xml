@@ -15,12 +15,25 @@
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
             android:orientation="vertical">
+
+
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:iss_auto_cycle="true"
+                app:iss_period="4000"
+                app:iss_delay="4000"
+                app:iss_text_align="CENTER"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="¿POR QUÉ CERAMIC PRO EN TU VEHÍCULO?"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="40dp"
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
 
