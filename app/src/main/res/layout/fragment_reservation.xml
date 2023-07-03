@@ -10,7 +10,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="100dp"
         android:scrollbars="none">
 
         <LinearLayout
@@ -129,26 +128,21 @@
                     android:fontFamily="@font/montserrat"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:id="@+id/btn_confirm"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:text="Confirmar Cita"
+                android:backgroundTint="@color/black"
+                android:textSize="20sp"
+                app:cornerRadius="12dp"
+                android:fontFamily="@font/montserrat"/>
+
         </LinearLayout>
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_gravity="bottom"
-        android:background="@color/white">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:id="@+id/btn_confirm"
-            android:layout_marginBottom="10dp"
-            android:textAllCaps="false"
-            android:text="Confirmar Cita"
-            android:backgroundTint="@color/black"
-            android:textSize="20sp"
-            app:cornerRadius="12dp"
-            android:fontFamily="@font/montserrat"/>
-    </LinearLayout>
 
 </FrameLayout>
