@@ -42,12 +42,16 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton Back;
     private Button Ingresar;
     private TextInputEditText txt_Email, txt_Pass;
-    private String URL = "http://192.168.1.12:8082/Api/Account/Auth";
-
+    private String URL = "";
+    SharedPreferences cookies;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
+
+        URL = cookies.getString("url", "http://localhost:8082");
 
         client = new OkHttpClient();
         gson = new Gson();
@@ -92,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         req.acPassword = txt_Pass.getText().toString();
         RequestBody body = RequestBody.create(gson.toJson(req), mediaType);
         Request request = new Request.Builder()
-                .url(URL)
+                .url(URL + "/Api/Account/Auth")
                 .post(body)
                 .addHeader("Content-Type", "application/json")
                 .build();
@@ -145,14 +149,12 @@ public class LoginActivity extends AppCompatActivity {
         loading.show();
         loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
-
     private void Message(String Title, String Message) {
         MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(LoginActivity.this);
         Builder.setTitle(Title)
                 .setMessage(Message)
                 .setPositiveButton("Ok", null).show();
     }
-
     private boolean ValidEmail(String email){
         Pattern pattern = Pattern
                 .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
