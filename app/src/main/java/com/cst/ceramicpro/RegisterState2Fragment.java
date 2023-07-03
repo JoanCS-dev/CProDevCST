@@ -1,7 +1,9 @@
 package com.cst.ceramicpro;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cst.ceramicpro.models.AccountRequestVM;
 import com.cst.ceramicpro.models.PeopleRequestVM;
@@ -62,10 +65,20 @@ public class RegisterState2Fragment extends Fragment {
     private AutoCompleteTextView autoCompleteAsentamiento;
     private List<SettlementResponseVM> Lst;
     private long SettlementID = 0;
+    SharedPreferences cookies;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_register_state2, container, false);
+
+        cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
+
+        URL = cookies.getString("url", "");
+
+        if(URL == ""){
+            Toast.makeText(view.getContext(), "Por favor ingresa la url del servidor", Toast.LENGTH_SHORT).show();
+        }
+
         getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
@@ -162,132 +175,143 @@ public class RegisterState2Fragment extends Fragment {
         return view;
     }
 
-    public void SearchCP(){
-        SettlementRequestVM req = new SettlementRequestVM();
-        req.SettCP = txt_CodigoPostal.getText().toString();
+    public void SearchCP() {
+        if(URL != ""){
+            SettlementRequestVM req = new SettlementRequestVM();
+            req.SettCP = txt_CodigoPostal.getText().toString();
 
-        RequestBody body = RequestBody.create(gson.toJson(req), mediaType);
-        Request request = new Request.Builder()
-                .url(URL + "/Settlement/SettlementGetByCP")
-                .post(body)
-                .addHeader("Content-Type", "application/json")
-                .build();
+            RequestBody body = RequestBody.create(gson.toJson(req), mediaType);
+            Request request = new Request.Builder()
+                    .url(URL + "/Settlement/SettlementGetByCP")
+                    .post(body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loading.hide();
-                        Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                    }
-                });
-            }
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        }
+                    });
+                }
 
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loading.hide();
-                        try{
-                            String string_json = response.body().string();
-                            Type res_Type = new TypeToken<ResponseVM<List<SettlementResponseVM>>>() {}.getType();
-                            ResponseVM<List<SettlementResponseVM>> res = gson.fromJson(string_json, res_Type);
-                            if(res.ok){
-                                txt_Estado.setText(res.data.get(0).stateName);
-                                txt_Municipio.setText(res.data.get(0).municipalityName);
-                                Lst = res.data;
-                                ArrayList<String> arr = new ArrayList<>();
-                                for (SettlementResponseVM item:Lst) {
-                                    arr.add(item.settDesc);
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            try {
+                                String string_json = response.body().string();
+                                Type res_Type = new TypeToken<ResponseVM<List<SettlementResponseVM>>>() {
+                                }.getType();
+                                ResponseVM<List<SettlementResponseVM>> res = gson.fromJson(string_json, res_Type);
+                                if (res.ok) {
+                                    txt_Estado.setText(res.data.get(0).stateName);
+                                    txt_Municipio.setText(res.data.get(0).municipalityName);
+                                    Lst = res.data;
+                                    ArrayList<String> arr = new ArrayList<>();
+                                    for (SettlementResponseVM item : Lst) {
+                                        arr.add(item.settDesc);
+                                    }
+
+                                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.drop_down_item, arr);
+                                    autoCompleteAsentamiento.setAdapter(arrayAdapter);
+
+                                } else {
+                                    Message("Información", res.message);
+                                    txt_Estado.setText("");
+                                    txt_Municipio.setText("");
                                 }
-
-                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.drop_down_item, arr);
-                                autoCompleteAsentamiento.setAdapter(arrayAdapter);
-
-                            }else{
-                                Message("Información", res.message);
+                            } catch (Exception ex) {
+                                Message("Error", ex.getMessage());
                                 txt_Estado.setText("");
                                 txt_Municipio.setText("");
                             }
-                        }catch (Exception ex){
-                            Message("Error", ex.getMessage());
-                            txt_Estado.setText("");
-                            txt_Municipio.setText("");
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+
+        }else{
+            Message("Error", "Por favor ingresa la url del servidor");
+        }
     }
-    public void SaveAs(){
-        PeopleRequestVM peopleRequestVM = new PeopleRequestVM();
-        peopleRequestVM.peopleID = 0;
-        peopleRequestVM.peFirstName = txt_Name;
-        peopleRequestVM.peLastName = txt_Lastname;
-        peopleRequestVM.peDateOfBirth = "2023-01-01";
-        peopleRequestVM.peStatus = false;
-        peopleRequestVM.peRDate = "2023-01-01";
-        peopleRequestVM.peStreet = txt_Calle.getText().toString();
-        peopleRequestVM.peOutsideCode = txt_NumExterior.getText().toString();
-        peopleRequestVM.peInsideCode = txt_NumInterior.getText().toString();
-        peopleRequestVM.settlementID = SettlementID;
+    public void SaveAs() {
+        if(URL != ""){
+            PeopleRequestVM peopleRequestVM = new PeopleRequestVM();
+            peopleRequestVM.peopleID = 0;
+            peopleRequestVM.peFirstName = txt_Name;
+            peopleRequestVM.peLastName = txt_Lastname;
+            peopleRequestVM.peDateOfBirth = "2023-01-01";
+            peopleRequestVM.peStatus = false;
+            peopleRequestVM.peRDate = "2023-01-01";
+            peopleRequestVM.peStreet = txt_Calle.getText().toString();
+            peopleRequestVM.peOutsideCode = txt_NumExterior.getText().toString();
+            peopleRequestVM.peInsideCode = txt_NumInterior.getText().toString();
+            peopleRequestVM.settlementID = SettlementID;
 
-        AccountRequestVM acc = new AccountRequestVM();
-        acc.accountID = 0;
-        acc.acUser = txt_Email;
-        acc.acPassword = txt_Pass;
-        acc.acEmailAddress = txt_Email;
-        acc.acPhoneNumber = txt_Phone;
-        acc.acVerifyEmail = false;
-        acc.acStatus = "NA";
-        acc.acRDate = "2023-01-01";
-        acc.peopleID = 0;
-        acc.profileID = 0;
-        acc.peopleVM = peopleRequestVM;
+            AccountRequestVM acc = new AccountRequestVM();
+            acc.accountID = 0;
+            acc.acUser = txt_Email;
+            acc.acPassword = txt_Pass;
+            acc.acEmailAddress = txt_Email;
+            acc.acPhoneNumber = txt_Phone;
+            acc.acVerifyEmail = false;
+            acc.acStatus = "NA";
+            acc.acRDate = "2023-01-01";
+            acc.peopleID = 0;
+            acc.profileID = 0;
+            acc.peopleVM = peopleRequestVM;
 
-        RequestBody body = RequestBody.create(gson.toJson(acc), mediaType);
-        Request request = new Request.Builder()
-                .url(URL + "/Account/Add")
-                .post(body)
-                .addHeader("Content-Type", "application/json")
-                .build();
+            RequestBody body = RequestBody.create(gson.toJson(acc), mediaType);
+            Request request = new Request.Builder()
+                    .url(URL + "/Account/Add")
+                    .post(body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loading.hide();
-                        Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loading.hide();
-                        try{
-                            String string_json = response.body().string();
-
-                            ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
-                            //Message("Información", res.message);
-                            if(res.ok){
-                                startActivity(new Intent(getActivity(), LoginActivity.class));
-                            }
-                        }catch (Exception ex){
-                            Message("Error", ex.getMessage());
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            try {
+                                String string_json = response.body().string();
+
+                                ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                                //Message("Información", res.message);
+                                if (res.ok) {
+                                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                                }
+                            } catch (Exception ex) {
+                                Message("Error", ex.getMessage());
+                            }
+                        }
+                    });
+                }
+            });
+
+        }else{
+            Message("Error", "Por favor ingresa la url del servidor");
+        }
     }
     private void Show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());

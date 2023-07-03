@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.cst.ceramicpro.models.AuthRequestVM;
 import com.cst.ceramicpro.models.AuthResponseVM;
@@ -51,7 +52,11 @@ public class LoginActivity extends AppCompatActivity {
 
         cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
 
-        URL = cookies.getString("url", "http://localhost:8082");
+        URL = cookies.getString("url", "");
+
+        if(URL == ""){
+            Toast.makeText(this, "Por favor ingresa la url del servidor", Toast.LENGTH_SHORT).show();
+        }
 
         client = new OkHttpClient();
         gson = new Gson();
@@ -90,56 +95,62 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void LogIn(){
-        AuthRequestVM req = new AuthRequestVM();
-        req.acUser = txt_Email.getText().toString();
-        req.acPassword = txt_Pass.getText().toString();
-        RequestBody body = RequestBody.create(gson.toJson(req), mediaType);
-        Request request = new Request.Builder()
-                .url(URL + "/Api/Account/Auth")
-                .post(body)
-                .addHeader("Content-Type", "application/json")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loading.hide();
-                        Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loading.hide();
-                        try{
-                            String string_json = response.body().string();
-                            Type res_Type = new TypeToken<ResponseVM<AuthResponseVM>>() {}.getType();
-                            ResponseVM<AuthResponseVM> res = gson.fromJson(string_json, res_Type);
-                            if(res.ok){
-                                SharedPreferences sharedPreferences = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("strToken", res.data.strToken);
-                                editor.putString("fullName", res.data.fullName);
-                                editor.apply();
-                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                                finish();
-                            }else{
-                                Message("Información", res.message);
-                            }
-                        }catch (Exception ex){
-                            Message("Error", ex.getMessage());
+    public void LogIn() {
+        if(URL != ""){
+            AuthRequestVM req = new AuthRequestVM();
+            req.acUser = txt_Email.getText().toString();
+            req.acPassword = txt_Pass.getText().toString();
+            RequestBody body = RequestBody.create(gson.toJson(req), mediaType);
+            Request request = new Request.Builder()
+                    .url(URL + "/Api/Account/Auth")
+                    .post(body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            try {
+                                String string_json = response.body().string();
+                                Type res_Type = new TypeToken<ResponseVM<AuthResponseVM>>() {
+                                }.getType();
+                                ResponseVM<AuthResponseVM> res = gson.fromJson(string_json, res_Type);
+                                if (res.ok) {
+                                    SharedPreferences sharedPreferences = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("strToken", res.data.strToken);
+                                    editor.putString("fullName", res.data.fullName);
+                                    editor.apply();
+                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                    finish();
+                                } else {
+                                    Message("Información", res.message);
+                                }
+                            } catch (Exception ex) {
+                                Message("Error", ex.getMessage());
+                            }
+                        }
+                    });
+                }
+            });
+
+        }else{
+            Message("Error", "Por favor ingresa la url del servidor");
+        }
     }
     private void Show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
