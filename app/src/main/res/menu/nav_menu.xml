@@ -16,7 +16,7 @@
             android:id="@+id/nav_planes"
             android:icon="@drawable/baseline_home_repair_service_24"
             android:fontFamily="@font/montserrat"
-            android:title="Planes"/>
+            android:title="Paquetes"/>
         <item
             android:id="@+id/nav_reserv"
             android:icon="@drawable/ic_baseline_date"

@@ -20,9 +20,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bienvenido."
+            android:text="Bienvenido a ceramic pro"
             style="@style/TextDescription"
-            android:paddingTop="15dp"
+            android:paddingTop="20dp"
             android:textSize="18sp"
             android:fontFamily="@font/montserrat"/>
 <!--
