@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -21,11 +22,17 @@ public class StartActivity extends AppCompatActivity {
     private Button LoginRedirect, RegisterRedirect;
     private TextView Invitado, btn_copyright;
     private BottomSheetDialog dialog;
+    private SharedPreferences cookies;
+    private String URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
+
+
 
         LoginRedirect = findViewById(R.id.Btn_Act_Login);
         RegisterRedirect = findViewById(R.id.Btn_Act_Register);
@@ -98,15 +105,20 @@ public class StartActivity extends AppCompatActivity {
 
     public void ShowModalEditText(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Registar url");
+        //alert.setTitle("Registar url");
         //alert.setMessage("Escribe la url del servidor");
+
+        URL = cookies.getString("url", "https://");
+
 
         final EditText input = new EditText(this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         input.setLayoutParams(lp);
+        input.setText(URL);
         alert.setView(input);
+        //set padding in parent layout
 
         alert.setPositiveButton("Guardar",
                 new DialogInterface.OnClickListener() {

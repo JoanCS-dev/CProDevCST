@@ -182,7 +182,7 @@ public class RegisterState2Fragment extends Fragment {
 
             RequestBody body = RequestBody.create(gson.toJson(req), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/Settlement/SettlementGetByCP")
+                    .url(URL + "/Api/Settlement/SettlementGetByCP")
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();
@@ -270,7 +270,7 @@ public class RegisterState2Fragment extends Fragment {
 
             RequestBody body = RequestBody.create(gson.toJson(acc), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/Account/Add")
+                    .url(URL + "/Api/Account/Add")
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();
