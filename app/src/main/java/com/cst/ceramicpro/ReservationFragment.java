@@ -1,10 +1,14 @@
 package com.cst.ceramicpro;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -15,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import com.cst.ceramicpro.models.BrandVM;
 import com.cst.ceramicpro.models.ColorVM;
@@ -25,6 +31,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ReservationFragment extends Fragment {
@@ -41,6 +48,7 @@ public class ReservationFragment extends Fragment {
     private List<ColorVM> lst_color;
     private long brandID, modelID;
     private String serviceName, colorName;
+    private int dia, mes, ano, hora, minutos;
     public ReservationFragment() {
         // Required empty public constructor
     }
@@ -63,6 +71,8 @@ public class ReservationFragment extends Fragment {
         edit_date = view.findViewById(R.id.edit_date);
         edit_hour = view.findViewById(R.id.edit_hour);
         btn_confirm = view.findViewById(R.id.btn_confirm);
+
+
 
         InitLst();
 
@@ -113,8 +123,49 @@ public class ReservationFragment extends Fragment {
                 colorName = adapterView.getItemAtPosition(i).toString();
             }
         });
+        edit_date.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                Calendar c = Calendar.getInstance();
+                dia = c.get(Calendar.DAY_OF_MONTH);
+                mes = c.get(Calendar.MONTH);
+                ano = c.get(Calendar.YEAR);
+
+                DatePickerDialog dialog = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        edit_date.setText(AddC(i) +"-"+AddC(i1)+"-"+AddC(i2));
+                    }
+                }, ano, mes, dia);
+
+                dialog.show();
+            }
+        });
+        edit_hour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog dialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                        edit_hour.setText(AddC(i) +"-"+AddC(i1));
+                    }
+                }, hora, minutos, true);
+
+                dialog.show();
+            }
+        });
 
         return view;
+    }
+    private String AddC(int No){
+        String n = "";
+        if(No < 10){
+            n = "0" + No;
+        }else{
+            n = "" + No;
+        }
+        return n;
     }
     private void InitLst(){
         lst_service = new ArrayList<>();
