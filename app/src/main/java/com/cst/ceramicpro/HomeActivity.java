@@ -67,6 +67,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReservationFragment()).commit();
                 break;
 
+            case R.id.nav_membership:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MembershipFragment()).commit();
+                break;
+
             case R.id.nav_close_sesion:
                 startActivity(new Intent(HomeActivity.this, StartActivity.class));
                 finish();

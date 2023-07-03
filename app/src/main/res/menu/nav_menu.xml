@@ -21,7 +21,13 @@
             android:id="@+id/nav_reserv"
             android:icon="@drawable/ic_baseline_date"
             android:fontFamily="@font/montserrat"
-            android:title="Reserva"/>
+            android:title="Agendar cita"/>
+
+        <item
+            android:id="@+id/nav_membership"
+            android:icon="@drawable/baseline_card_membership"
+            android:fontFamily="@font/montserrat"
+            android:title="Membresia"/>
 
     </group>
 
