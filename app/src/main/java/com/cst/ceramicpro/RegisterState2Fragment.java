@@ -60,7 +60,7 @@ public class RegisterState2Fragment extends Fragment {
     private String txt_Name, txt_Lastname, txt_Phone, txt_Email, txt_Pass;
     private TextInputEditText txt_CodigoPostal, txt_Estado, txt_Municipio, txt_Calle, txt_NumExterior, txt_NumInterior;
     private Button btn_search_cp;
-    private String URL = "http://192.168.1.12:8082/Api";
+    private String URL = "";
     private View view;
     private AutoCompleteTextView autoCompleteAsentamiento;
     private List<SettlementResponseVM> Lst;

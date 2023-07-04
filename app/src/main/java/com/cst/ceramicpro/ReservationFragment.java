@@ -3,11 +3,14 @@ package com.cst.ceramicpro;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -21,39 +24,57 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.cst.ceramicpro.models.BrandVM;
 import com.cst.ceramicpro.models.ColorVM;
 import com.cst.ceramicpro.models.ModelVM;
+import com.cst.ceramicpro.models.QuoteDatesVM;
+import com.cst.ceramicpro.models.QuoteHoursVM;
+import com.cst.ceramicpro.models.ResponseVM;
 import com.cst.ceramicpro.models.ServiceVM;
+import com.cst.ceramicpro.models.SettlementRequestVM;
 import com.cst.ceramicpro.models.SettlementResponseVM;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ReservationFragment extends Fragment {
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
+public class ReservationFragment extends Fragment {
+    private MediaType mediaType = MediaType.parse("application/json");
     private View view;
     private Dialog loading;
-    private AutoCompleteTextView dropdown_service, dropdown_brand, dropdown_model, dropdown_color;
-    private TextInputEditText edit_date, edit_hour;
+    private AutoCompleteTextView dropdown_service, dropdown_brand, dropdown_model, dropdown_color, dropdown_hour;
+    private TextInputEditText edit_date;
     private Button btn_confirm;
-    private String _dropdown_service, _dropdown_brand, _dropdown_model, _dropdown_color;
+    private String _dropdown_service, _dropdown_brand, _dropdown_model, _dropdown_color, _dropdown_hour, serviceName, colorName, hour, token, URL = "";
     private List<ServiceVM> lst_service;
     private List<BrandVM> lst_brand;
     private List<ModelVM> lst_model;
     private List<ColorVM> lst_color;
     private long brandID, modelID;
-    private String serviceName, colorName;
-    private int dia, mes, ano, hora, minutos;
+    private int dia, mes, ano;
+    private SharedPreferences cookies;
+    private OkHttpClient client;
+    private Gson gson;
+
+    private List<QuoteDatesVM> lst_dates;
     public ReservationFragment() {
-        // Required empty public constructor
     }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,11 +89,21 @@ public class ReservationFragment extends Fragment {
         dropdown_brand = view.findViewById(R.id.dropdown_brand);
         dropdown_model = view.findViewById(R.id.dropdown_model);
         dropdown_color = view.findViewById(R.id.dropdown_color);
+        dropdown_hour = view.findViewById(R.id.dropdown_hour);
         edit_date = view.findViewById(R.id.edit_date);
-        edit_hour = view.findViewById(R.id.edit_hour);
         btn_confirm = view.findViewById(R.id.btn_confirm);
 
+        client = new OkHttpClient();
 
+        cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
+        token = cookies.getString("strToken", "");
+        URL = cookies.getString("url", "");
+
+        if(URL == ""){
+            Toast.makeText(view.getContext(), "Por favor ingresa la url del servidor", Toast.LENGTH_SHORT).show();
+        }
+
+        gson = new Gson();
 
         InitLst();
 
@@ -123,6 +154,12 @@ public class ReservationFragment extends Fragment {
                 colorName = adapterView.getItemAtPosition(i).toString();
             }
         });
+        dropdown_hour.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                hour = adapterView.getItemAtPosition(i).toString();
+            }
+        });
         edit_date.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -135,28 +172,81 @@ public class ReservationFragment extends Fragment {
                 DatePickerDialog dialog = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        edit_date.setText(AddC(i) +"-"+AddC(i1)+"-"+AddC(i2));
+                        String date = AddC(i) +"-"+AddC(i1)+"-"+AddC(i2);
+                        edit_date.setText(date);
+
+                        ArrayList<String> arr = new ArrayList<>();
+                        for (QuoteDatesVM item : lst_dates) {
+                            if(item.quoteDates == date){
+                                for (QuoteHoursVM hour : item.quoteHours){
+                                    arr.add(hour.quoteHour);
+                                }
+                                break;
+                            }
+                        }
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.drop_down_item, arr);
+                        dropdown_hour.setAdapter(arrayAdapter);
+
                     }
                 }, ano, mes, dia);
 
                 dialog.show();
             }
         });
-        edit_hour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TimePickerDialog dialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                        edit_hour.setText(AddC(i) +"-"+AddC(i1));
-                    }
-                }, hora, minutos, true);
 
-                dialog.show();
-            }
-        });
+        SearchDates();
 
         return view;
+    }
+    public void SearchDates() {
+        if(URL != "" && token != ""){
+            Show();
+            RequestBody body = RequestBody.create("", mediaType);
+            Request request = new Request.Builder()
+                    .url(URL + "/Api/Quotes/ListQuotes")
+                    .post(body)
+                    .addHeader("Authorization", "Bearer " + token)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        }
+                    });
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            try {
+                                String string_json = response.body().string();
+                                Type res_Type = new TypeToken<ResponseVM<List<QuoteDatesVM>>>() {}.getType();
+                                ResponseVM<List<QuoteDatesVM>> res = gson.fromJson(string_json, res_Type);
+                                if (res.ok) {
+                                    lst_dates = res.data;
+                                } else {
+                                    Message("Información", res.message);
+                                }
+                            } catch (Exception ex) {
+                                Message("Error", ex.getMessage());
+                            }
+                        }
+                    });
+                }
+            });
+
+        }else{
+            Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
+        }
     }
     private String AddC(int No){
         String n = "";

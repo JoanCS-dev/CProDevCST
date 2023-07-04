@@ -111,20 +111,20 @@
                     android:fontFamily="@font/montserrat"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Hora de la cita"
                 android:layout_marginBottom="30px"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_hour"
+                android:hint="Hora de la cita"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:fontFamily="@font/montserrat">
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_hour"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="time"
-                    android:focusable="false"
-                    android:clickable="true"
-                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:inputType="none"
                     android:fontFamily="@font/montserrat"/>
             </com.google.android.material.textfield.TextInputLayout>
 
