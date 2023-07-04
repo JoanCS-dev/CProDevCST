@@ -1,8 +1,11 @@
 package com.cst.ceramicpro;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -17,6 +20,8 @@ public class MembershipFragment extends Fragment {
 
     private ImageView ivQrCode;
     private View view;
+    private SharedPreferences cookies;
+    private String strCode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,16 +34,16 @@ public class MembershipFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_membership, container, false);
-
+        cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         ivQrCode = view.findViewById(R.id.QR_content);
-
+        strCode = cookies.getString("strCode", "");
         try {
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.encodeBitmap(
-                    "IdGenerateRandom",
+                    strCode,
                     BarcodeFormat.QR_CODE,
-                    750,
-                    750
+                    1000,
+                    1000
             );
             ivQrCode.setImageBitmap(bitmap);
         }catch (Exception e) {

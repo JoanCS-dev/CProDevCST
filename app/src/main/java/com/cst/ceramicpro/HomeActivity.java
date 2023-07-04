@@ -19,9 +19,9 @@ import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    SharedPreferences cookies;
-    DrawerLayout drawerLayout;
-    String strToken, fullName;
+    private SharedPreferences cookies;
+    private DrawerLayout drawerLayout;
+    private String strToken, fullName, strCode;
     //TextView  username;
 
     @Override

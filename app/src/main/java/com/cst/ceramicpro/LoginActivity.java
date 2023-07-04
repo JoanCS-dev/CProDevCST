@@ -134,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("strToken", res.data.strToken);
                                     editor.putString("fullName", res.data.fullName);
+                                    editor.putString("strCode", res.data.strCode);
                                     editor.apply();
                                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                                     finish();

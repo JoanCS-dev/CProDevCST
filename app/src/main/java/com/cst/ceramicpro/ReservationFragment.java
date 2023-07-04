@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -26,11 +27,14 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cst.ceramicpro.models.AccountRequestVM;
 import com.cst.ceramicpro.models.BrandVM;
 import com.cst.ceramicpro.models.ColorVM;
 import com.cst.ceramicpro.models.ModelVM;
+import com.cst.ceramicpro.models.PeopleRequestVM;
 import com.cst.ceramicpro.models.QuoteDatesVM;
 import com.cst.ceramicpro.models.QuoteHoursVM;
+import com.cst.ceramicpro.models.QuotesRequestVM;
 import com.cst.ceramicpro.models.ResponseVM;
 import com.cst.ceramicpro.models.ServiceVM;
 import com.cst.ceramicpro.models.SettlementRequestVM;
@@ -106,7 +110,13 @@ public class ReservationFragment extends Fragment {
         gson = new Gson();
 
         InitLst();
-
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Show();
+                Confirm();
+            }
+        });
         dropdown_service.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -172,12 +182,12 @@ public class ReservationFragment extends Fragment {
                 DatePickerDialog dialog = new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        String date = AddC(i) +"-"+AddC(i1)+"-"+AddC(i2);
+                        String date = AddC(i) +"-"+AddC(i1+1)+"-"+AddC(i2);
                         edit_date.setText(date);
 
                         ArrayList<String> arr = new ArrayList<>();
                         for (QuoteDatesVM item : lst_dates) {
-                            if(item.quoteDates == date){
+                            if(item.quoteDates.equals(date)){
                                 for (QuoteHoursVM hour : item.quoteHours){
                                     arr.add(hour.quoteHour);
                                 }
@@ -198,7 +208,65 @@ public class ReservationFragment extends Fragment {
 
         return view;
     }
-    public void SearchDates() {
+    public void Confirm() {
+        if(URL != ""){
+            QuotesRequestVM quotesRequestVM = new QuotesRequestVM();
+            quotesRequestVM.quotesID = 0;
+            quotesRequestVM.quotesDate = edit_date.getText().toString();
+            quotesRequestVM.quotesHour = hour;
+            quotesRequestVM.quotesService = serviceName;
+            quotesRequestVM.quotesColor = colorName;
+            quotesRequestVM.quotesSTS = "ACTIVO";
+            quotesRequestVM.accountID = 0;
+
+            RequestBody body = RequestBody.create(gson.toJson(quotesRequestVM), mediaType);
+            Request request = new Request.Builder()
+                    .url(URL + "/Api/Quotes/Add")
+                    .post(body)
+                    .addHeader("Authorization", "Bearer " + token)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        }
+                    });
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            try {
+                                String string_json = response.body().string();
+
+                                ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                                if (res.ok) {
+                                    Message("Correcto", res.message);
+                                }else {
+                                    Message("Información", res.message);
+                                }
+                            } catch (Exception ex) {
+                                Message("Error", ex.getMessage());
+                            }
+                        }
+                    });
+                }
+            });
+
+        }else{
+            Message("Error", "Por favor ingresa la url del servidor");
+        }
+    }
+    private void SearchDates() {
         if(URL != "" && token != ""){
             Show();
             RequestBody body = RequestBody.create("", mediaType);
