@@ -65,12 +65,12 @@ public class ReservationFragment extends Fragment {
     private AutoCompleteTextView dropdown_service, dropdown_brand, dropdown_model, dropdown_color, dropdown_hour;
     private TextInputEditText edit_date;
     private Button btn_confirm;
-    private String _dropdown_service, _dropdown_brand, _dropdown_model, _dropdown_color, _dropdown_hour, serviceName, colorName, hour, token, URL = "";
+    private String serviceName, colorName, token, URL = "";
     private List<ServiceVM> lst_service;
     private List<BrandVM> lst_brand;
     private List<ModelVM> lst_model;
     private List<ColorVM> lst_color;
-    private long brandID, modelID;
+    private long brandID, modelID, quoteHoursID;
     private int dia, mes, ano;
     private SharedPreferences cookies;
     private OkHttpClient client;
@@ -167,7 +167,18 @@ public class ReservationFragment extends Fragment {
         dropdown_hour.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                hour = adapterView.getItemAtPosition(i).toString();
+                String hour = adapterView.getItemAtPosition(i).toString();
+                for (QuoteDatesVM date_item: lst_dates) {
+                    if(date_item.quoteDates.equals(edit_date.getText().toString())){
+                        for (QuoteHoursVM hour_item: date_item.quoteHours) {
+                            if(hour == hour_item.quoteHour){
+                                quoteHoursID = hour_item.quoteHoursID;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
             }
         });
         edit_date.setOnClickListener(new View.OnClickListener() {
@@ -212,12 +223,12 @@ public class ReservationFragment extends Fragment {
         if(URL != ""){
             QuotesRequestVM quotesRequestVM = new QuotesRequestVM();
             quotesRequestVM.quotesID = 0;
-            quotesRequestVM.quotesDate = edit_date.getText().toString();
-            quotesRequestVM.quotesHour = hour;
+            quotesRequestVM.quoteHoursID = quoteHoursID;
             quotesRequestVM.quotesService = serviceName;
             quotesRequestVM.quotesColor = colorName;
             quotesRequestVM.quotesSTS = "ACTIVO";
             quotesRequestVM.accountID = 0;
+            quotesRequestVM.vehicleModelID = modelID;
 
             RequestBody body = RequestBody.create(gson.toJson(quotesRequestVM), mediaType);
             Request request = new Request.Builder()

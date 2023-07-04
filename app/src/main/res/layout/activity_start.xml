@@ -57,12 +57,18 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp" />
-    <TextView
-        android:id="@+id/btn_copyright"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="\u00A92023 Ceramic Pro v1.01"
-        android:gravity="center"
-        android:fontFamily="@font/montserrat"
-        android:textSize="10dp"/>
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/btn_copyright"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\u00A92023 Ceramic Pro v1.01"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"/>
+    </FrameLayout>
 </LinearLayout>

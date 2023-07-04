@@ -209,7 +209,6 @@
                 android:layout_gravity="bottom"
                 android:textSize="20sp"
                 app:cornerRadius="12dp"
-                android:drawableEnd="@drawable/baseline_arrow_forward_24"
                 android:fontFamily="@font/montserrat"/>
 
 
