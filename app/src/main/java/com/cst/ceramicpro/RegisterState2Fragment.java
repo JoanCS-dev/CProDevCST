@@ -73,7 +73,7 @@ public class RegisterState2Fragment extends Fragment {
 
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
 
-        URL = cookies.getString("url", "");
+        URL = cookies.getString("url", "http://localhost:8082");
 
         if(URL == ""){
             Toast.makeText(view.getContext(), "Por favor ingresa la url del servidor", Toast.LENGTH_SHORT).show();

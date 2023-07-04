@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
 
-        URL = cookies.getString("url", "");
+        URL = cookies.getString("url", "http://localhost:8082");
 
         if(URL == ""){
             Toast.makeText(this, "Por favor ingresa la url del servidor", Toast.LENGTH_SHORT).show();
