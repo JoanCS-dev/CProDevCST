@@ -124,6 +124,8 @@ public class RegisterState2Fragment extends Fragment {
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                validateBack();
+
                 Fragment fragment = new RegisterState1Fragment();
                 FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
                 fm.replace(R.id.container,fragment).commit();
@@ -173,6 +175,16 @@ public class RegisterState2Fragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void validateBack() {
+        Bundle result = new Bundle();
+        result.putString("txt_NameParse", txt_Name);
+        result.putString("txt_LastnameParse", txt_Lastname);
+        result.putString("txt_PhoneParse", txt_Phone);
+        result.putString("txt_EmailParse", txt_Email);
+        result.putString("txt_PassParse", txt_Pass);
+        getParentFragmentManager().setFragmentResult("databack", result);
     }
 
     public void SearchCP() {

@@ -79,7 +79,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Verificar"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:fontFamily="@font/montserrat"/>
             </LinearLayout>
 

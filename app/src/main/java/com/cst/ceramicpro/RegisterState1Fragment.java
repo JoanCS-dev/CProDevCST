@@ -3,7 +3,9 @@ package com.cst.ceramicpro;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -24,6 +26,7 @@ public class RegisterState1Fragment extends Fragment {
     private Button B_Continuar;
     private ImageButton Back;
     private TextInputEditText txt_Name, txt_Lastname, txt_Phone, txt_Email, txt_Pass, txt_Confirm_Pass;
+    private String txt_NameParse, txt_LastnameParse, txt_PhoneParse, txt_EmailParse, txt_PassParse;
     private View view;
 
     @Override
@@ -40,6 +43,8 @@ public class RegisterState1Fragment extends Fragment {
         txt_Email = view.findViewById(R.id.txt_Email);
         txt_Pass = view.findViewById(R.id.txt_Pass);
         txt_Confirm_Pass = view.findViewById(R.id.txt_Confirm_Pass);
+
+        validateBack();
 
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +97,29 @@ public class RegisterState1Fragment extends Fragment {
 
         return view;
     }
+
+    private void validateBack() {
+        getParentFragmentManager().setFragmentResultListener("databack", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                // We use a String here, but any type that can be put in a Bundle is supported
+                txt_NameParse = bundle.getString("txt_NameParse");
+                txt_LastnameParse = bundle.getString("txt_LastnameParse");
+                txt_PhoneParse = bundle.getString("txt_PhoneParse");
+                txt_EmailParse = bundle.getString("txt_EmailParse");
+                txt_PassParse = bundle.getString("txt_PassParse");
+                // Do something with the result...
+
+                txt_Name.setText(txt_NameParse);
+                txt_Lastname.setText(txt_LastnameParse);
+                txt_Phone.setText(txt_NameParse);
+                txt_Email.setText(txt_EmailParse);
+                txt_Pass.setText(txt_PassParse);
+                txt_Confirm_Pass.setText("");
+            }
+        });
+    }
+
     private void Message(String Title, String Message) {
         MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(view.getContext());
         Builder.setTitle(Title)
